@@ -1,4 +1,4 @@
-package jmapps.hadith40.ui
+package jmapps.hadith40.presentation.ui
 
 import android.app.Activity
 import android.content.Intent
