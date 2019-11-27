@@ -14,6 +14,10 @@ class MainPresenter(private val context: Context?, _view: MainContract.View) : M
         view?.initView()
     }
 
+    override fun getFavorites() {
+        view?.setFavorites()
+    }
+
     override fun getSettings() {
         view?.setSettings()
     }
