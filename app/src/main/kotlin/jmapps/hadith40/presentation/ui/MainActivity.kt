@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,6 +16,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import jmapps.hadith40.R
 import jmapps.hadith40.data.database.DatabaseLists
@@ -23,13 +25,14 @@ import jmapps.hadith40.presentation.mvp.main.MainPresenter
 import jmapps.hadith40.presentation.ui.about.AboutUsBottomSheet
 import jmapps.hadith40.presentation.ui.chapters.AdapterChapter
 import jmapps.hadith40.presentation.ui.chapters.ModelChapter
+import jmapps.hadith40.presentation.ui.favorites.FavoritesBottomSheet
 import jmapps.hadith40.presentation.ui.settings.SettingsBottomSheet
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    TextWatcher, MainContract.View, AdapterChapter.OnItemClick {
+    TextWatcher, MainContract.View, AdapterChapter.OnItemClick, View.OnClickListener {
 
     private var keyNightMode = "key_night_mode"
 
@@ -71,7 +74,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         swNightMode = navigationView.menu.findItem(R.id.nav_night_mode).actionView as Switch
         swNightMode.isClickable = false
         swNightMode.isChecked = preferences.getBoolean(keyNightMode, false)
-
         initView()
     }
 
@@ -119,6 +121,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun initView() {
         mainPresenter?.getNightMode(swNightMode.isChecked)
 
+        rvMainChapters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dx < dy) {
+                    fabFavorites.hide()
+                } else {
+                    fabFavorites.show()
+                }
+            }
+        })
+
         chapterList = DatabaseLists(this).getChapterList
 
         val verticalList = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -126,10 +138,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         adapterChapter = AdapterChapter(chapterList, this)
         rvMainChapters.adapter = adapterChapter
+
+        fabFavorites.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        mainPresenter?.getFavorites()
     }
 
     override fun itemClick(chapterId: Int) {
         Toast.makeText(this, "Click = $chapterId", Toast.LENGTH_LONG).show()
+    }
+
+    override fun setFavorites() {
+        val favoritesBottomSheet = FavoritesBottomSheet()
+        favoritesBottomSheet.setStyle(STYLE_NORMAL, R.style.BottomSheetStyleFull)
+        favoritesBottomSheet.show(supportFragmentManager, "favorites")
     }
 
     override fun setSettings() {
