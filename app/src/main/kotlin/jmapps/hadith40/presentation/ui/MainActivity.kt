@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun afterTextChanged(s: Editable?) {
-
+        adapterChapter.filter.filter(s)
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
