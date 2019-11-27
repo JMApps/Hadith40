@@ -54,7 +54,7 @@ class AdapterChapter(private var chapterList: MutableList<ModelChapter>,
                     val filteredList = ArrayList<ModelChapter>()
                     for (row in mainChapterList!!) {
                         if (row.strChapterTitle?.toLowerCase()!!.contains(charString.toLowerCase()) ||
-                            row.strNumberHadeeth.toString().contains(charSequence)
+                            row.strNumberHadeeth?.toLowerCase()!!.contains(charString.toLowerCase())
                         ) {
                             filteredList.add(row)
                         }
