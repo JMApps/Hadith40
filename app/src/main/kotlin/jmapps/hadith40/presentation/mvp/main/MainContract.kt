@@ -8,10 +8,16 @@ interface MainContract {
 
     interface View {
         fun initView()
-        fun saveNigtModeState(state: Boolean)
+        fun setSettings()
+        fun saveNightModeState(state: Boolean)
+        fun setAboutUs()
     }
 
     interface Presenter {
+        fun getSettings()
         fun getNightMode(state: Boolean)
+        fun getAboutUs()
+        fun getRate()
+        fun getShare()
     }
 }
