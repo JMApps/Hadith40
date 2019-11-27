@@ -8,6 +8,10 @@
     <string name="navigation_drawer_close">Закрыть навигационный ящик</string>
     <string name="action_search_chapter">Поиск по главам…</string>
 
+    <!--    Favorites-->
+    <string name="action_favorites">Избранное</string>
+    <string name="action_is_favorites_empty">Добавьте избранные главы</string>
+
     <!--    Settings-->
     <string name="action_settings">Настройки</string>
 
