@@ -30,7 +30,8 @@
             android:inputType="text"
             android:maxEms="20"
             android:maxLines="1"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textColor="@color/colorAccent" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
