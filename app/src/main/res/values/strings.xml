@@ -1,12 +1,31 @@
 <resources>
     <!--    App-->
     <string name="app_name">40 ХАДИСОВ</string>
+    <string name="database_name">Database_ru</string>
+    <string name="action_app_full_name">40 Хадисов Имама ан-Навави</string>
+    <string name="action_app_link">https://play.google.com/store/apps/details?id=jmapps.hadith40</string>
     <string name="navigation_drawer_open">Открыть навигационный ящик</string>
     <string name="navigation_drawer_close">Закрыть навигационный ящик</string>
+    <string name="action_search_chapter">Поиск по главам…</string>
 
     <!--    Settings-->
     <string name="action_settings">Настройки</string>
-    <string name="action_search_chapter">Поиск по главам…</string>
+
+    <!--    About us-->
+    <string name="action_about_us">О нас</string>
+    <string name="action_about_us_text">
+        <b>JMApps</b> - серия бесплатных и безрекламных андроид-приложений для мусульман.\n\n
+
+        Вы можете следить за обновлением старых и изданием новых приложений в наших соцсетях:\n\n
+
+        ВКонтакте: www.vk.com/JMApps\n
+        Telegram: t.me/JMApps\n
+        Facebook: www.facebook.com/JMAppsM\n
+        Instagram: www.instagram.com/dev_muslim\n\n
+
+        По всем вопросам, предложениям и скритикой можете писать нам на почту:
+        JMAppsMuslim@gmail.com или в Telegram: t.me/dev_muslim
+    </string>
 
     <!--    Navigation View-->
     <string name="menu_tools">Настройки</string>
