@@ -21,12 +21,16 @@
             android:id="@+id/etSearchByChapters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/search_view_corners"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
             android:hint="@string/action_search_chapter"
-            android:background="@drawable/search_view_corners"
-            android:padding="8dp"
-            android:layout_margin="8dp" />
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxEms="20"
+            android:maxLines="1"
+            android:padding="8dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
