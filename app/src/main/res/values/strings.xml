@@ -1,6 +1,6 @@
 <resources>
     <!--    App-->
-    <string name="app_name">40 хадисов</string>
+    <string name="app_name">40 ХАДИСОВ</string>
     <string name="navigation_drawer_open">Открыть навигационный ящик</string>
     <string name="navigation_drawer_close">Закрыть навигационный ящик</string>
 
@@ -9,10 +9,10 @@
     <string name="action_search_chapter">Поиск по главам…</string>
 
     <!--    Navigation View-->
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_tools">Настройки</string>
+    <string name="menu_night_mode">Ночной режим</string>
+    <string name="menu_additionally">Дополнительно</string>
+    <string name="menu_about_us">О нас</string>
+    <string name="menu_rate">Оценить</string>
+    <string name="menu_share">Поделиться</string>
 </resources>
