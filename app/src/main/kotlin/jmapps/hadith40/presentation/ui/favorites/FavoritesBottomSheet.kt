@@ -32,10 +32,41 @@ class FavoritesBottomSheet : BottomSheetDialogFragment(), AdapterFavorite.OnItem
     private lateinit var favoriteList: MutableList<ModelFavorite>
     private lateinit var adapterFavorite: AdapterFavorite
 
-    @SuppressLint("CommitPrefEdits")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootFavorites = inflater.inflate(R.layout.bottom_sheet_favorites, container, false)
 
+        initView()
+
+        return rootFavorites
+    }
+
+    override fun itemClick(favoriteId: Int) {
+
+    }
+
+    override fun favoriteClick(state: Boolean, favoriteId: Int) {
+        chapterPresenter.getFavorite(state, favoriteId)
+        initView()
+    }
+
+    override fun saveFavorite(keyFavorite: String, state: Boolean) {
+        editor.putBoolean(keyFavorite, state).apply()
+    }
+
+    override fun saveMessage(state: Boolean) {
+        if (state) {
+            Toast.makeText(context, getString(R.string.action_favorite_added), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, getString(R.string.action_favorite_removed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(context, "${getString(R.string.action_exception)} $message", Toast.LENGTH_SHORT).show()
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    private fun initView() {
         database = DatabaseOpenHelper(context).readableDatabase
         favoriteList = DatabaseLists(context).getFavroiteList
 
@@ -58,30 +89,5 @@ class FavoritesBottomSheet : BottomSheetDialogFragment(), AdapterFavorite.OnItem
             rootFavorites.rvFavorites.visibility = View.VISIBLE
         }
 
-        return rootFavorites
-    }
-
-    override fun itemClick(favoriteId: Int) {
-
-    }
-
-    override fun favoriteClick(state: Boolean, favoriteId: Int) {
-        chapterPresenter.getFavorite(state, favoriteId)
-    }
-
-    override fun saveFavorite(keyFavorite: String, state: Boolean) {
-        editor.putBoolean(keyFavorite, state).apply()
-    }
-
-    override fun saveMessage(state: Boolean) {
-        if (state) {
-            Toast.makeText(context, getString(R.string.action_favorite_added), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, getString(R.string.action_favorite_removed), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun showMessage(message: String) {
-        Toast.makeText(context, "${getString(R.string.action_exception)} $message", Toast.LENGTH_SHORT).show()
     }
 }
