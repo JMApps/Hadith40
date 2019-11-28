@@ -2,6 +2,7 @@ package jmapps.hadith40.presentation.ui
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import jmapps.hadith40.R
 import jmapps.hadith40.data.database.DatabaseLists
+import jmapps.hadith40.data.database.DatabaseOpenHelper
+import jmapps.hadith40.presentation.mvp.chapters.ChapterContract
+import jmapps.hadith40.presentation.mvp.chapters.ChapterPresenter
 import jmapps.hadith40.presentation.mvp.main.MainContract
 import jmapps.hadith40.presentation.mvp.main.MainPresenter
 import jmapps.hadith40.presentation.ui.about.AboutUsBottomSheet
@@ -32,11 +36,15 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    TextWatcher, MainContract.View, AdapterChapter.OnItemClick, View.OnClickListener {
+    TextWatcher, MainContract.View, AdapterChapter.OnItemClick, View.OnClickListener,
+    ChapterContract.ChapterView, AdapterChapter.OnFavoriteClick {
 
     private var keyNightMode = "key_night_mode"
 
+    private var database: SQLiteDatabase? = null
+
     private var mainPresenter: MainPresenter? = null
+    private var chapterPresenter: ChapterPresenter? = null
 
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
@@ -62,7 +70,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.string.navigation_drawer_close
         )
 
+        database = DatabaseOpenHelper(this).readableDatabase
+
         mainPresenter = MainPresenter(this, this)
+        chapterPresenter = ChapterPresenter(this, database!!)
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -136,7 +147,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val verticalList = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvMainChapters.layoutManager = verticalList
 
-        adapterChapter = AdapterChapter(chapterList, this)
+        adapterChapter = AdapterChapter(chapterList, this, this, preferences)
         rvMainChapters.adapter = adapterChapter
 
         fabFavorites.setOnClickListener(this)
@@ -147,7 +158,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun itemClick(chapterId: Int) {
-        Toast.makeText(this, "Click = $chapterId", Toast.LENGTH_LONG).show()
+
+    }
+
+    override fun favoriteClick(state: Boolean, chapterId: Int) {
+        chapterPresenter?.getFavorite(state, chapterId)
     }
 
     override fun setFavorites() {
@@ -170,5 +185,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val aboutUsBottomSheet = AboutUsBottomSheet()
         aboutUsBottomSheet.setStyle(STYLE_NORMAL, R.style.BottomSheetStyleFull)
         aboutUsBottomSheet.show(supportFragmentManager, "about_us")
+    }
+
+    override fun saveFavorite(keyFavorite: String, state: Boolean) {
+        editor.putBoolean(keyFavorite, state).apply()
+    }
+
+    override fun saveMessage(state: Boolean) {
+        if (state) {
+            Toast.makeText(this, getString(R.string.action_favorite_added), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, getString(R.string.action_favorite_removed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(this, "${getString(R.string.action_exception)} $message", Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,6 +1,7 @@
 package jmapps.hadith40.presentation.ui.chapters
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import jmapps.hadith40.R
 
 class AdapterChapter(private var chapterList: MutableList<ModelChapter>,
-                     private val onItemClick: OnItemClick) :
+                     private val onItemClick: OnItemClick,
+                     private val onFavoriteClick: OnFavoriteClick,
+                     private val preferences: SharedPreferences) :
     RecyclerView.Adapter<ViewHolderChapter>(), Filterable {
 
     private var mainChapterList: MutableList<ModelChapter>? = null
@@ -21,6 +24,10 @@ class AdapterChapter(private var chapterList: MutableList<ModelChapter>,
 
     interface OnItemClick {
         fun itemClick(chapterId: Int)
+    }
+
+    interface OnFavoriteClick {
+        fun favoriteClick(state: Boolean, chapterId: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderChapter {
@@ -40,7 +47,10 @@ class AdapterChapter(private var chapterList: MutableList<ModelChapter>,
         holder.tvChapterNumber.text = strChapterNumber
         holder.tvChapterTitle.text = Html.fromHtml(strChapterTitle)
 
+        holder.tbChapterFavorite.setOnCheckedChangeListener(null)
+        holder.tbChapterFavorite.isChecked = preferences.getBoolean("key_chapter_favorite_$chapterId", false)
         holder.findItemClick(onItemClick, chapterId!!)
+        holder.findFavoriteButton(onFavoriteClick, chapterId)
     }
 
     override fun getFilter(): Filter {
@@ -54,8 +64,7 @@ class AdapterChapter(private var chapterList: MutableList<ModelChapter>,
                     val filteredList = ArrayList<ModelChapter>()
                     for (row in mainChapterList!!) {
                         if (row.strChapterTitle?.toLowerCase()!!.contains(charString.toLowerCase()) ||
-                            row.strNumberHadeeth?.toLowerCase()!!.contains(charString.toLowerCase())
-                        ) {
+                            row.strNumberHadeeth?.toLowerCase()!!.contains(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }

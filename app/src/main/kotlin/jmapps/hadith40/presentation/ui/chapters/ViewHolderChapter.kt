@@ -17,4 +17,10 @@ class ViewHolderChapter (itemView: View): RecyclerView.ViewHolder(itemView) {
             onItemClick.itemClick(chapterId)
         }
     }
+
+    fun findFavoriteButton(onFavoriteClick: AdapterChapter.OnFavoriteClick, chapterId: Int) {
+        tbChapterFavorite.setOnCheckedChangeListener { _, isChecked ->
+            onFavoriteClick.favoriteClick(isChecked, chapterId)
+        }
+    }
 }
