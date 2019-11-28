@@ -1,17 +1,19 @@
 package jmapps.hadith40.presentation.ui
 
 import android.annotation.SuppressLint
+import android.app.SearchManager
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.TextUtils
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.DialogFragment.STYLE_NORMAL
@@ -36,8 +38,8 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    TextWatcher, MainContract.View, AdapterChapter.OnItemClick, View.OnClickListener,
-    ChapterContract.ChapterView, AdapterChapter.OnFavoriteClick {
+    MainContract.View, AdapterChapter.OnItemClick, View.OnClickListener,
+    ChapterContract.ChapterView, AdapterChapter.OnFavoriteClick, SearchView.OnQueryTextListener {
 
     private var keyNightMode = "key_night_mode"
 
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var chapterList: MutableList<ModelChapter>
     private lateinit var adapterChapter: AdapterChapter
+
+    private var searchView: SearchView? = null
 
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,8 +83,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navigationView.setNavigationItemSelectedListener(this)
 
-        etSearchByChapters.addTextChangedListener(this)
-
         navigationView.menu.findItem(R.id.nav_night_mode).actionView = Switch(this)
         swNightMode = navigationView.menu.findItem(R.id.nav_night_mode).actionView as Switch
         swNightMode.isClickable = false
@@ -96,10 +98,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.main, menu)
-//        return true
-//    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        searchView = menu.findItem(R.id.action_search).actionView as SearchView?
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView?.maxWidth = Integer.MAX_VALUE
+        searchView?.setOnQueryTextListener(this)
+        return true
+    }
+
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (TextUtils.isEmpty(newText)) {
+            adapterChapter.filter.filter("")
+        } else {
+            adapterChapter.filter.filter(newText)
+        }
+        return true
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -120,14 +141,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
-    override fun afterTextChanged(s: Editable?) {
-        adapterChapter.filter.filter(s)
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
     override fun initView() {
         mainPresenter?.getNightMode(swNightMode.isChecked)
