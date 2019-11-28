@@ -11,9 +11,14 @@
     <!--    Favorites-->
     <string name="action_favorites">Избранное</string>
     <string name="action_is_favorites_empty">Добавьте избранные главы</string>
+    <string name="action_favorite_added">Добавлено в избранное</string>
+    <string name="action_favorite_removed">Удалено из избранного</string>
 
     <!--    Settings-->
     <string name="action_settings">Настройки</string>
+
+    <!--    Database-->
+    <string name="action_exception">Ошибка:</string>
 
     <!--    About us-->
     <string name="action_about_us">О нас</string>
