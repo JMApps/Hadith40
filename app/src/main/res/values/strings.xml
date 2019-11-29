@@ -43,4 +43,7 @@
     <string name="menu_about_us">О нас</string>
     <string name="menu_rate">Оценить</string>
     <string name="menu_share">Поделиться</string>
+
+    <!--    Content Activity-->
+    <string name="title_activity_scrolling">к главам</string>
 </resources>
