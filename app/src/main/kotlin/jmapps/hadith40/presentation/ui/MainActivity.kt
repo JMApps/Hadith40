@@ -2,6 +2,7 @@ package jmapps.hadith40.presentation.ui
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
+import android.content.Intent
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -31,6 +32,7 @@ import jmapps.hadith40.presentation.mvp.main.MainPresenter
 import jmapps.hadith40.presentation.ui.about.AboutUsBottomSheet
 import jmapps.hadith40.presentation.ui.chapters.AdapterChapter
 import jmapps.hadith40.presentation.ui.chapters.ModelChapter
+import jmapps.hadith40.presentation.ui.contents.ContentActivity
 import jmapps.hadith40.presentation.ui.favorites.FavoritesBottomSheet
 import jmapps.hadith40.presentation.ui.settings.SettingsBottomSheet
 import kotlinx.android.synthetic.main.activity_main.*
@@ -171,7 +173,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun itemClick(chapterId: Int) {
-
+        toContentActivity(chapterId)
     }
 
     override fun favoriteClick(state: Boolean, chapterId: Int) {
@@ -214,5 +216,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun showMessage(message: String) {
         Toast.makeText(this, "${getString(R.string.action_exception)} $message", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun toContentActivity(chapterId: Int) {
+        val toContent = Intent(this, ContentActivity::class.java)
+        toContent.putExtra("key_chapter_position", chapterId)
+        startActivity(toContent)
     }
 }

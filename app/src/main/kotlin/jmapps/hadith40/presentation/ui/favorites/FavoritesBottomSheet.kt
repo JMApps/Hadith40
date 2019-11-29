@@ -1,6 +1,7 @@
 package jmapps.hadith40.presentation.ui.favorites
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -16,6 +17,7 @@ import jmapps.hadith40.data.database.DatabaseLists
 import jmapps.hadith40.data.database.DatabaseOpenHelper
 import jmapps.hadith40.presentation.mvp.chapters.ChapterContract
 import jmapps.hadith40.presentation.mvp.chapters.ChapterPresenter
+import jmapps.hadith40.presentation.ui.contents.ContentActivity
 import kotlinx.android.synthetic.main.bottom_sheet_favorites.view.*
 
 class FavoritesBottomSheet : BottomSheetDialogFragment(), AdapterFavorite.OnItemClick,
@@ -41,7 +43,7 @@ class FavoritesBottomSheet : BottomSheetDialogFragment(), AdapterFavorite.OnItem
     }
 
     override fun itemClick(favoriteId: Int) {
-
+        toContentActivity(favoriteId)
     }
 
     override fun favoriteClick(state: Boolean, favoriteId: Int) {
@@ -89,5 +91,11 @@ class FavoritesBottomSheet : BottomSheetDialogFragment(), AdapterFavorite.OnItem
             rootFavorites.rvFavorites.visibility = View.VISIBLE
         }
 
+    }
+
+    private fun toContentActivity(favoriteId: Int) {
+        val toContent = Intent(context, ContentActivity::class.java)
+        toContent.putExtra("key_chapter_position", favoriteId)
+        context?.startActivity(toContent)
     }
 }
