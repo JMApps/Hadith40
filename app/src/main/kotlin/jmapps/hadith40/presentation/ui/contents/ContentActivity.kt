@@ -2,14 +2,19 @@ package jmapps.hadith40.presentation.ui.contents
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.appbar.AppBarLayout
 import jmapps.hadith40.R
 import jmapps.hadith40.data.database.DatabaseLists
+import jmapps.hadith40.presentation.ui.apart.ApartBottomSheet
 import jmapps.hadith40.presentation.ui.chapters.ModelChapter
 import kotlinx.android.synthetic.main.activity_content.*
 
-class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
+    AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
     private lateinit var chapterList: MutableList<ModelChapter>
 
@@ -31,7 +36,9 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         tvChapterTitle.text = chapterList[chapterPosition - 1].strChapterTitle
         mainViewPager.currentItem = chapterPosition - 1
 
+        appBar.addOnOffsetChangedListener(this)
         mainViewPager.addOnPageChangeListener(this)
+        fabApartContent.setOnClickListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -52,5 +59,19 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     override fun onPageSelected(position: Int) {
         tvChapterNumber.text = chapterList[position].strNumberHadeeth
         tvChapterTitle.text = chapterList[position].strChapterTitle
+    }
+
+    override fun onOffsetChanged(appBar: AppBarLayout?, verticalOffset: Int) {
+        if (verticalOffset < 0) {
+            fabApartContent.hide()
+        } else {
+            fabApartContent.show()
+        }
+    }
+
+    override fun onClick(v: View?) {
+        val apartBottomSheet = ApartBottomSheet()
+        apartBottomSheet.setStyle(STYLE_NORMAL, R.style.BottomSheetStyleFull)
+        apartBottomSheet.show(supportFragmentManager, "apart_list")
     }
 }
