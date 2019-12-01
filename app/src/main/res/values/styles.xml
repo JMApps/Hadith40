@@ -19,6 +19,7 @@
 
     <style name="BottomSheetStyleFull" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/windowBackground</item>
     </style>
 

@@ -5,6 +5,7 @@
     <color name="colorAccent">#FFD600</color>
 
     <color name="main">#FFFFFF</color>
+    <color name="lightAccent">#FAE7A9</color>
 
     <color name="windowBackground">#333333</color>
 </resources>
