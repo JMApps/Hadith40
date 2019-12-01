@@ -50,4 +50,7 @@
     <!--    MediaPlayer-->
     <string name="player_loop_on">Повтор включён</string>
     <string name="player_loop_off">Повтор отключён</string>
+
+    <!--    Apart content-->
+    <string name="action_apart">Раздельно</string>
 </resources>
