@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        android:drawableStart="@drawable/ic_search_white"
+        android:drawableStart="@drawable/ic_settings_white"
         android:drawablePadding="16dp"
         android:padding="16dp"
         android:text="@string/action_settings"
