@@ -33,7 +33,8 @@ class DatabaseLists(private val context: Context?) {
                     val chapters = ModelChapter(
                         cursor.getInt(cursor.getColumnIndex("_id")),
                         cursor.getString(cursor.getColumnIndex("NumberHadeeth")),
-                        cursor.getString(cursor.getColumnIndex("TitleHadeeth")))
+                        cursor.getString(cursor.getColumnIndex("TitleHadeeth")),
+                        cursor.getString(cursor.getColumnIndex("NameAudio")))
                     chapterList.add(chapters)
                     cursor.moveToNext()
                     if (cursor.isClosed) {
