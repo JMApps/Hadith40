@@ -107,9 +107,9 @@ class ContentFragment : Fragment(), ContentContract.ContentView, ChapterContract
 
             R.id.tbLoop -> {
                 if (isChecked) {
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.player_loop_on), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.player_loop_off), Toast.LENGTH_SHORT).show()
                 }
                 player?.isLooping = isChecked
             }
