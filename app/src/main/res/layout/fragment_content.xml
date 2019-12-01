@@ -40,26 +40,44 @@
                     android:id="@+id/tbPlay"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/state_play"
                     android:text=""
                     android:textOff=""
                     android:textOn="" />
 
                 <SeekBar
+                    android:id="@+id/sbAudioProgress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1" />
 
                 <ToggleButton
                     android:id="@+id/tbLoop"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/state_loop"
                     android:text=""
                     android:textOff=""
                     android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbChapterFavorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_favorite"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
+
+                <Button
+                    android:id="@+id/btnShareContent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/state_share_content" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
