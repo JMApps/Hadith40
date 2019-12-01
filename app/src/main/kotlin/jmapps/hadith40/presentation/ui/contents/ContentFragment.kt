@@ -78,6 +78,7 @@ class ContentFragment : Fragment(), ContentContract.ContentView, ChapterContract
         rootContent.tbPlay.setOnCheckedChangeListener(this)
         rootContent.sbAudioProgress.setOnSeekBarChangeListener(this)
         rootContent.tbLoop.setOnCheckedChangeListener(this)
+
         rootContent.tbChapterFavorite.isChecked = preferences.getBoolean("key_chapter_favorite_${sectionNumber!!}", false)
         rootContent.btnShareContent.setOnClickListener(this)
         rootContent.tbChapterFavorite.setOnCheckedChangeListener(this)
