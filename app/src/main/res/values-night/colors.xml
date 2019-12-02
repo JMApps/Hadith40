@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#616161</color>
-    <color name="colorPrimaryDark">#424242</color>
+    <color name="colorPrimary">#202020</color>
+    <color name="colorPrimaryDark">#202020</color>
     <color name="colorAccent">#FFD600</color>
 
     <color name="main">#FFFFFF</color>
-    <color name="lightAccent">#FAE7A9</color>
+    <color name="reMain">#333333</color>
+    <color name="header">#424242</color>
+    <color name="lightAccent">#50FFEEC4</color>
 
     <color name="windowBackground">#333333</color>
 </resources>
