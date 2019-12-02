@@ -99,8 +99,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
         sbAudioProgress.setOnSeekBarChangeListener(this)
         tbLoop.setOnCheckedChangeListener(this)
 
-        tbChapterFavorite.isChecked =
-            preferences.getBoolean("key_chapter_favorite_${chapterPosition}", false)
+        tbChapterFavorite.isChecked = preferences.getBoolean("key_chapter_favorite_${chapterPosition}", false)
         btnShareContent.setOnClickListener(this)
         tbChapterFavorite.setOnCheckedChangeListener(this)
     }
@@ -118,6 +117,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
 
     override fun onPageSelected(position: Int) {
         chapterPosition = position + 1
+        tbChapterFavorite.isChecked = preferences.getBoolean("key_chapter_favorite_${chapterPosition}", false)
         trackIndex = position
 
         numberHadeeth = chapterList[position].strNumberHadeeth
@@ -215,13 +215,13 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
     }
 
     override fun saveMessage(state: Boolean) {
-        if (state) {
-            Toast.makeText(this, getString(R.string.action_favorite_added), Toast.LENGTH_SHORT)
-                .show()
-        } else {
-            Toast.makeText(this, getString(R.string.action_favorite_removed), Toast.LENGTH_SHORT)
-                .show()
-        }
+//        if (state) {
+//            Toast.makeText(this, getString(R.string.action_favorite_added), Toast.LENGTH_SHORT)
+//                .show()
+//        } else {
+//            Toast.makeText(this, getString(R.string.action_favorite_removed), Toast.LENGTH_SHORT)
+//                .show()
+//        }
     }
 
     override fun showMessage(message: String) {
