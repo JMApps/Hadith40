@@ -1,0 +1,49 @@
+<resources>
+    <!--    App-->
+    <string name="app_name">40 HADITH</string>
+    <string name="database_name">Database_en</string>
+    <string name="action_app_full_name">40 Hadith of Imam an-Nawawi</string>
+    <string name="action_app_link">https://play.google.com/store/apps/details?id=jmapps.hadith40</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_search_chapter">Search by chapter…</string>
+
+    <!--    Favorites-->
+    <string name="action_favorites">Favorites</string>
+    <string name="action_is_favorites_empty">Add favorite chapters</string>
+    <string name="action_favorite_added">Added to favorites</string>
+    <string name="action_favorite_removed">Removed from favorites</string>
+
+    <!--    Settings-->
+    <string name="action_settings">Settings</string>
+    <string name="action_text_size">Text sizes</string>
+    <string name="action_size_arabic">Arabic</string>
+    <string name="action_size_translation">Translation</string>
+    <string name="action_text_show">Showing text</string>
+    <string name="action_show_translation">Translation</string>
+
+    <!--    Database-->
+    <string name="action_exception">Error:</string>
+
+    <!--    About us-->
+    <string name="action_about_us" />
+    <string name="action_about_us_text" />
+
+    <!--    Navigation View-->
+    <string name="menu_tools">Settings</string>
+    <string name="menu_night_mode">Night mode</string>
+    <string name="menu_additionally">Additionally</string>
+    <string name="menu_about_us" />
+    <string name="menu_rate">Rate</string>
+    <string name="menu_share">Share</string>
+
+    <!--    Content Activity-->
+    <string name="title_activity_scrolling">To chapters</string>
+
+    <!--    MediaPlayer-->
+    <string name="player_loop_on">Loop on</string>
+    <string name="player_loop_off">Loop off</string>
+
+    <!--    Apart content-->
+    <string name="action_apart">By phrases</string>
+</resources>
