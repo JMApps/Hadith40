@@ -16,6 +16,11 @@
 
     <!--    Settings-->
     <string name="action_settings">Настройки</string>
+    <string name="action_text_size">Размер текста</string>
+    <string name="action_size_arabic">Арабский</string>
+    <string name="action_size_translation">Перевод</string>
+    <string name="action_text_show">Отображение текста</string>
+    <string name="action_show_translation">Перевод</string>
 
     <!--    Database-->
     <string name="action_exception">Ошибка:</string>
