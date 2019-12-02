@@ -243,9 +243,14 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
-        tbPlay.isChecked = false
-        handler.removeCallbacks(runnable)
-        sbAudioProgress?.progress = 0
+        if (tbLoop.isChecked) {
+            player?.isLooping = true
+        } else {
+            player?.isLooping = false
+            tbPlay.isChecked = false
+            handler.removeCallbacks(runnable)
+            sbAudioProgress?.progress = 0
+        }
     }
 
     private fun currentAudioProgress() {
