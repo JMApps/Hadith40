@@ -31,12 +31,12 @@
         <activity
             android:name=".presentation.ui.contents.ContentActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppThemeRest" />
 
         <activity
             android:name=".presentation.ui.apart.ApartActivity"
             android:label="@string/action_apart"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppThemeRest" />
     </application>
 
 </manifest>
