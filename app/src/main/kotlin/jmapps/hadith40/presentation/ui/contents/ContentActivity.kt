@@ -46,7 +46,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
     private lateinit var runnable: Runnable
     private var handler: Handler = Handler()
 
-    private var trackIndex: Int? = null
+    private var trackIndex: Int = 0
     private var chapterPosition: Int? = null
 
     private var numberHadeeth: String? = null
@@ -79,6 +79,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
         mainViewPager.adapter = sectionsPagerAdapter
 
         chapterPosition = intent.getIntExtra("key_chapter_position", 0)
+        trackIndex = chapterPosition as Int - 1
         mainViewPager.currentItem = chapterPosition!! - 1
 
         numberHadeeth = chapterList[chapterPosition!! - 1].strNumberHadeeth
@@ -92,7 +93,9 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
 
         mainViewPager.addOnPageChangeListener(this)
 
+        btnPrevious.setOnClickListener(this)
         tbPlay.setOnCheckedChangeListener(this)
+        btnNext.setOnClickListener(this)
         sbAudioProgress.setOnSeekBarChangeListener(this)
         tbLoop.setOnCheckedChangeListener(this)
 
@@ -127,6 +130,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
 
     override fun onPageSelected(position: Int) {
         chapterPosition = position + 1
+        trackIndex = position
 
         numberHadeeth = chapterList[position].strNumberHadeeth
         chapterTitle = chapterList[position].strChapterTitle
@@ -137,19 +141,13 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
         tvChapterNumber.text = numberHadeeth
         tvChapterTitle.text = chapterTitle
 
-        if (player != null) {
-            clear()
-            tbPlay.isChecked = false
-            handler.removeCallbacks(runnable)
-            sbAudioProgress?.progress = 0
-        }
+        tbPlay.isChecked = false
+        tbLoop.isChecked = false
+        clear()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (player != null) {
-            handler.removeCallbacks(runnable)
-        }
         clear()
     }
 
@@ -157,11 +155,19 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
         when (v?.id) {
 
             R.id.btnPrevious -> {
-
+                if (trackIndex > 0) {
+                    trackIndex--
+                    initPlayer(trackIndex)
+                    mainViewPager.currentItem = trackIndex
+                }
             }
 
             R.id.btnNext -> {
-
+                if (trackIndex < chapterList.size - 1) {
+                    trackIndex++
+                    initPlayer(trackIndex)
+                    mainViewPager.currentItem = trackIndex
+                }
             }
 
             R.id.btnShareContent -> {
@@ -186,7 +192,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
             R.id.tbPlay -> {
                 if (isChecked) {
                     if (player == null) {
-                        initPlayer(chapterPosition!! - 1)
+                        initPlayer(trackIndex)
                         player?.start()
                     } else {
                         currentAudioProgress()
@@ -248,8 +254,10 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
     private fun currentAudioProgress() {
         sbAudioProgress?.max = player?.seconds!!
         runnable = Runnable {
-            sbAudioProgress?.progress = player?.currentSeconds!!
-            handler.postDelayed(runnable, 1000)
+            if (player != null) {
+                sbAudioProgress?.progress = player?.currentSeconds!!
+                handler.postDelayed(runnable, 1000)
+            }
         }
         handler.postDelayed(runnable, 1000)
     }
@@ -265,9 +273,13 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
     override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
     private fun clear() {
-        player?.stop()
-        player?.release()
-        player = null
+        if (player != null) {
+            handler.removeCallbacks(runnable)
+            sbAudioProgress?.progress = 0
+            player?.stop()
+            player?.release()
+            player = null
+        }
     }
 
     private val MediaPlayer.seconds: Int?
