@@ -8,7 +8,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CompoundButton
@@ -93,6 +92,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
 
         mainViewPager.addOnPageChangeListener(this)
 
+        fabApartList.setOnClickListener(this)
         btnPrevious.setOnClickListener(this)
         tbPlay.setOnCheckedChangeListener(this)
         btnNext.setOnClickListener(this)
@@ -105,20 +105,8 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
         tbChapterFavorite.setOnCheckedChangeListener(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.content, menu)
-        return true
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
-            R.id.action_apart -> {
-                val toApartList = Intent(this, ApartActivity::class.java)
-                toApartList.putExtra("key_apart_position", chapterPosition)
-                startActivity(toApartList)
-            }
-
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
@@ -153,6 +141,12 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
 
     override fun onClick(v: View?) {
         when (v?.id) {
+
+            R.id.fabApartList -> {
+                val toApartList = Intent(this, ApartActivity::class.java)
+                toApartList.putExtra("key_apart_position", chapterPosition)
+                startActivity(toApartList)
+            }
 
             R.id.btnPrevious -> {
                 if (trackIndex > 0) {
