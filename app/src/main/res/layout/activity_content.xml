@@ -74,11 +74,87 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabApartContent"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_apart_white" />
+        android:layout_gravity="bottom"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHadeethArabic">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <Button
+                    android:id="@+id/btnPrevious"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_previous" />
+
+                <ToggleButton
+                    android:id="@+id/tbPlay"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_play"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_next" />
+
+                <SeekBar
+                    android:id="@+id/sbAudioProgress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/tbLoop"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_loop"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/tbChapterFavorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_favorite"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
+
+                <Button
+                    android:id="@+id/btnShareContent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/state_share_content" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
