@@ -19,7 +19,8 @@ class ContentPresenterImpl(
                 arrayOf("ContentArabic", "ContentTranslation"),
                 "_id = ?",
                 arrayOf("$sectionNumber"),
-                null, null, null)
+                null, null, null
+            )
 
             if (!mainCursor.isClosed && mainCursor.moveToFirst()) {
 
@@ -36,9 +37,5 @@ class ContentPresenterImpl(
         } catch (e: Exception) {
             contentView?.databaseException(e)
         }
-    }
-
-    override fun shareContent() {
-        contentView?.shareContent(hadeethArabic!!, hadeethTranslation!!)
     }
 }
