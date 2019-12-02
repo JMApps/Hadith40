@@ -19,7 +19,8 @@ import jmapps.hadith40.presentation.mvp.content.ContentPresenterImpl
 import jmapps.hadith40.presentation.ui.chapters.ModelChapter
 import kotlinx.android.synthetic.main.fragment_content.view.*
 
-class ContentFragment : Fragment(), ContentContract.ContentView {
+class ContentFragment : Fragment(), ContentContract.ContentView,
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var rootContent: View
 
@@ -31,6 +32,9 @@ class ContentFragment : Fragment(), ContentContract.ContentView {
     private lateinit var editor: SharedPreferences.Editor
 
     private lateinit var contentPresenterImpl: ContentPresenterImpl
+
+    private var textSizeArabic: Int? = null
+    private var textSizeArabicTranslation: Int? = null
 
     companion object {
 
@@ -56,9 +60,15 @@ class ContentFragment : Fragment(), ContentContract.ContentView {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(context)
         editor = preferences.edit()
+        PreferenceManager.getDefaultSharedPreferences(context).
+            registerOnSharedPreferenceChangeListener(this)
 
         contentPresenterImpl = ContentPresenterImpl(this, sectionNumber, database)
         contentPresenterImpl.initDatabaseContent()
+
+        sizeArabic()
+        sizeTranslation()
+        showTranslation()
 
         return rootContent
     }
@@ -70,5 +80,57 @@ class ContentFragment : Fragment(), ContentContract.ContentView {
 
     override fun databaseException(e: Exception) {
        Toast.makeText(context, "${getString(R.string.action_exception)} $e", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        sizeArabic()
+        sizeTranslation()
+        showTranslation()
+    }
+
+    private fun sizeArabic() {
+        textSizeArabic = preferences.getInt("key_size_arabic", 2)
+
+        when (textSizeArabic) {
+
+            0 -> textSizeArabic = 14
+            1 -> textSizeArabic = 16
+            2 -> textSizeArabic = 18
+            3 -> textSizeArabic = 20
+            4 -> textSizeArabic = 22
+            5 -> textSizeArabic = 24
+            6 -> textSizeArabic = 26
+            7 -> textSizeArabic = 28
+            8 -> textSizeArabic = 30
+        }
+        rootContent.tvHadeethArabic.textSize = textSizeArabic!!.toFloat()
+    }
+
+    private fun sizeTranslation() {
+        textSizeArabicTranslation = preferences.getInt("key_size_transcription", 2)
+
+        when (textSizeArabicTranslation) {
+
+            0 -> textSizeArabicTranslation = 14
+            1 -> textSizeArabicTranslation = 16
+            2 -> textSizeArabicTranslation = 18
+            3 -> textSizeArabicTranslation = 20
+            4 -> textSizeArabicTranslation = 22
+            5 -> textSizeArabicTranslation = 24
+            6 -> textSizeArabicTranslation = 26
+            7 -> textSizeArabicTranslation = 28
+            8 -> textSizeArabicTranslation = 30
+        }
+        rootContent.tvHadeethTranslation.textSize = textSizeArabicTranslation!!.toFloat()
+    }
+
+    private fun showTranslation() {
+        if (preferences.getBoolean("key_show_translation", true)) {
+            rootContent.tvHadeethTranslation.visibility = View.VISIBLE
+            rootContent.ivDecorLineCenter.visibility = View.VISIBLE
+        } else {
+            rootContent.tvHadeethTranslation.visibility = View.GONE
+            rootContent.ivDecorLineCenter.visibility = View.GONE
+        }
     }
 }
