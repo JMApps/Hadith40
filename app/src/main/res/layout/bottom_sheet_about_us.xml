@@ -9,7 +9,7 @@
         android:id="@+id/tvAboutUsDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gray"
         android:drawableStart="@drawable/ic_about_white"
         android:drawablePadding="8dp"
         android:padding="16dp"

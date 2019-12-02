@@ -15,8 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:elevation="5dp"
             android:theme="@style/Widget.AppCompat.SearchView.ActionBar"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shadow_line" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />

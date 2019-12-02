@@ -8,7 +8,7 @@
         android:id="@+id/tvSettingsDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gray"
         android:drawableStart="@drawable/ic_settings_white"
         android:drawablePadding="16dp"
         android:padding="16dp"

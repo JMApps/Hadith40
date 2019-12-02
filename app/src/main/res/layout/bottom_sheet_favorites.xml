@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gray"
         android:drawableStart="@drawable/ic_favorite"
         android:drawablePadding="16dp"
         android:padding="16dp"
