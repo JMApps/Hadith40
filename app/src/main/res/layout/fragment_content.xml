@@ -21,66 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHadeethArabic">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ToggleButton
-                    android:id="@+id/tbPlay"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/state_play"
-                    android:text=""
-                    android:textOff=""
-                    android:textOn="" />
-
-                <SeekBar
-                    android:id="@+id/sbAudioProgress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1" />
-
-                <ToggleButton
-                    android:id="@+id/tbLoop"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/state_loop"
-                    android:text=""
-                    android:textOff=""
-                    android:textOn="" />
-
-                <ToggleButton
-                    android:id="@+id/tbChapterFavorite"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/state_favorite"
-                    android:text=""
-                    android:textOff=""
-                    android:textOn="" />
-
-                <Button
-                    android:id="@+id/btnShareContent"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/state_share_content" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
         <TextView
             android:id="@+id/tvHadeethTranslation"
             android:layout_width="match_parent"
@@ -89,6 +29,6 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+            app:layout_constraintTop_toBottomOf="@+id/tvHadeethArabic" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
