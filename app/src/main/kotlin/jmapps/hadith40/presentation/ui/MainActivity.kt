@@ -53,12 +53,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
-    private lateinit var swNightMode: Switch
-
     private lateinit var chapterList: MutableList<ModelChapter>
     private lateinit var adapterChapter: AdapterChapter
 
-    private var searchView: SearchView? = null
+    private lateinit var swNightMode: Switch
+    private lateinit var searchView: SearchView
 
     @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +88,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         swNightMode = navigationView.menu.findItem(R.id.nav_night_mode).actionView as Switch
         swNightMode.isClickable = false
         swNightMode.isChecked = preferences.getBoolean(keyNightMode, false)
+
         initView()
+
+        rvMainChapters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dx < dy) {
+                    fabFavorites.hide()
+                } else {
+                    fabFavorites.show()
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -103,13 +113,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
-        searchView = menu.findItem(R.id.action_search).actionView as SearchView?
-        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView?.maxWidth = Integer.MAX_VALUE
-        searchView?.setOnQueryTextListener(this)
+        searchView = menu.findItem(R.id.action_search).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setOnQueryTextListener(this)
         return true
     }
-
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false
@@ -146,17 +155,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun initView() {
         mainPresenter?.getNightMode(swNightMode.isChecked)
-
-        rvMainChapters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dx < dy) {
-                    fabFavorites.hide()
-                } else {
-                    fabFavorites.show()
-                }
-            }
-        })
-
         chapterList = DatabaseLists(this).getChapterList
 
         val verticalList = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
