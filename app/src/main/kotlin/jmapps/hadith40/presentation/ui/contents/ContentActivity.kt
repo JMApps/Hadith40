@@ -23,6 +23,7 @@ import jmapps.hadith40.data.database.DatabaseLists
 import jmapps.hadith40.data.database.DatabaseOpenHelper
 import jmapps.hadith40.presentation.mvp.chapters.ChapterContract
 import jmapps.hadith40.presentation.mvp.chapters.ChapterPresenter
+import jmapps.hadith40.presentation.ui.LockOrientation
 import jmapps.hadith40.presentation.ui.apart.ApartActivity
 import jmapps.hadith40.presentation.ui.chapters.ModelChapter
 import kotlinx.android.synthetic.main.activity_content.*
@@ -58,6 +59,8 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
         setSupportActionBar(toolbar)
+
+        LockOrientation(this).lock()
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -133,6 +136,13 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
 
         tvChapterNumber.text = numberHadeeth
         tvChapterTitle.text = chapterTitle
+
+        if (player != null) {
+            clear()
+            tbPlay.isChecked = false
+            handler.removeCallbacks(runnable)
+            sbAudioProgress?.progress = 0
+        }
     }
 
     override fun onDestroy() {
@@ -157,9 +167,12 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
             R.id.btnShareContent -> {
                 val shareContent = Intent(Intent.ACTION_SEND)
                 shareContent.type = "text/plain"
-                shareContent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(
+                shareContent.putExtra(
+                    Intent.EXTRA_TEXT, Html.fromHtml(
                         "$numberHadeeth<br/>$chapterTitle<p/>" +
-                                "$contentArabic<p/>$contentTranslation").toString())
+                                "$contentArabic<p/>$contentTranslation"
+                    ).toString()
+                )
                 startActivity(shareContent)
             }
         }
@@ -173,7 +186,7 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
             R.id.tbPlay -> {
                 if (isChecked) {
                     if (player == null) {
-                        initPlayer(chapterPosition!!)
+                        initPlayer(chapterPosition!! - 1)
                         player?.start()
                     } else {
                         currentAudioProgress()

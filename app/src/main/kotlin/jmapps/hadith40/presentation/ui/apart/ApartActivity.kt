@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import jmapps.hadith40.R
 import jmapps.hadith40.data.database.ApartList
 import jmapps.hadith40.data.database.DatabaseLists
+import jmapps.hadith40.presentation.ui.LockOrientation
 import jmapps.hadith40.presentation.ui.chapters.ModelChapter
 import kotlinx.android.synthetic.main.activity_apart.*
 import kotlinx.android.synthetic.main.activity_content.toolbar
@@ -26,6 +27,8 @@ class ApartActivity : AppCompatActivity(), AdapterApart.ApartItemClick {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apart)
         setSupportActionBar(toolbar)
+
+        LockOrientation(this).lock()
 
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)

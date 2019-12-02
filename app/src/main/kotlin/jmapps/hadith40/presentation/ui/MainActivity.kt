@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        LockOrientation(this).lock()
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         editor = preferences.edit()
 
