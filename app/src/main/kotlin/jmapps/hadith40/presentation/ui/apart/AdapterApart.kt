@@ -35,6 +35,7 @@ class AdapterApart(
         val strContentArabic = apartList[position].strContentArabic
         val strContentTranslation = apartList[position].strContentTranslation
 
+        holder.tvApartNumberId.text = (position + 1).toString()
         holder.tvContentArabic.text = strContentArabic
 
         if (strContentTranslation.isNullOrEmpty()) {

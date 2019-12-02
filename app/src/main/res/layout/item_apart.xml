@@ -12,24 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackgroundBorderless"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvContentArabic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="16dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvContentTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvContentArabic"
-            android:layout_width="match_parent"
+            android:id="@+id/tvApartNumberId"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="16dp"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvContentTranslation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
