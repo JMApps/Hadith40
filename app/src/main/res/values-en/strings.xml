@@ -1,6 +1,6 @@
 <resources>
     <!--    App-->
-    <string name="app_name">40 HADITH</string>
+    <string name="app_name">40 hadith</string>
     <string name="database_name">Database_en</string>
     <string name="action_app_full_name">40 Hadith of Imam an-Nawawi</string>
     <string name="action_app_link">https://play.google.com/store/apps/details?id=jmapps.hadith40</string>

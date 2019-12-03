@@ -1,6 +1,6 @@
 <resources>
     <!--    App-->
-    <string name="app_name">40 HADİS</string>
+    <string name="app_name">40 hadis</string>
     <string name="database_name">Database_tr</string>
     <string name="action_app_full_name">40 Hadis İmam en-Nevevi</string>
     <string name="action_app_link">https://play.google.com/store/apps/details?id=jmapps.hadith40</string>

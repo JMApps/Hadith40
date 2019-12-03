@@ -1,6 +1,6 @@
 <resources>
     <!--    App-->
-    <string name="app_name">40 ХАДИСОВ</string>
+    <string name="app_name">40 хадисов</string>
     <string name="database_name">Database_ru</string>
     <string name="action_app_full_name">40 Хадисов Имама ан-Навави</string>
     <string name="action_app_link">https://play.google.com/store/apps/details?id=jmapps.hadith40</string>
