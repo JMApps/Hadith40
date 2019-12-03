@@ -8,19 +8,12 @@ import jmapps.hadith40.R
 
 class ViewHolderFavorite (itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    val tbFavorite: ToggleButton = itemView.findViewById(R.id.tbFavorite)
     val tvFavoriteNumber: TextView = itemView.findViewById(R.id.tvFavoriteNumber)
     val tvFavoriteTitle: TextView = itemView.findViewById(R.id.tvFavoriteTitle)
 
     fun findItemClick(onItemClick: AdapterFavorite.OnItemClick, favoriteId: Int) {
         itemView.setOnClickListener {
             onItemClick.itemClick(favoriteId)
-        }
-    }
-
-    fun findFavoriteButton(onFavoriteClick: AdapterFavorite.OnFavoriteClick, favoriteId: Int) {
-        tbFavorite.setOnCheckedChangeListener { _, isChecked ->
-            onFavoriteClick.favoriteClick(isChecked, favoriteId)
         }
     }
 }
