@@ -149,6 +149,8 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
                 toApartList.putExtra("key_apart_position", chapterPosition)
                 startActivity(toApartList)
                 clear()
+                tbPlay.isChecked = false
+                tbLoop.isChecked = false
             }
 
             R.id.btnPrevious -> {
@@ -170,12 +172,9 @@ class ContentActivity : AppCompatActivity(), ViewPager.OnPageChangeListener,
             R.id.btnShareContent -> {
                 val shareContent = Intent(Intent.ACTION_SEND)
                 shareContent.type = "text/plain"
-                shareContent.putExtra(
-                    Intent.EXTRA_TEXT, Html.fromHtml(
+                shareContent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(
                         "$numberHadeeth<br/>$chapterTitle<p/>" +
-                                "$contentArabic<p/>$contentTranslation"
-                    ).toString()
-                )
+                                "$contentArabic<p/>$contentTranslation").toString())
                 startActivity(shareContent)
             }
         }
