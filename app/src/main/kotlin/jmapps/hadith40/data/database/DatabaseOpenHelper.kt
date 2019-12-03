@@ -4,12 +4,12 @@ import android.content.Context
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper
 import jmapps.hadith40.R
 
-private var databaseVersion = 2
+private var databaseVersion = 3
 
 class DatabaseOpenHelper(context: Context?) : SQLiteAssetHelper(
     context, context?.getString(R.string.database_name), null, databaseVersion) {
 
     init {
-        setForcedUpgrade(databaseVersion)
+        setForcedUpgrade()
     }
 }
